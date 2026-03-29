@@ -17,6 +17,7 @@ CYAN = "\033[48;5;51m  \033[0m"
 GREEN = "\033[48;5;46m  \033[0m"
 YELLOW = "\033[48;5;226m  \033[0m"
 BLUE = "\033[48;5;27m  \033[0m"
+ORANGE = "\033[48;5;208m  \033[0m"
 
 PALETTES = [
     {
@@ -26,6 +27,8 @@ PALETTES = [
         "exit": RED,
         "path": CYAN,
         "pattern": LIGHT_GRAY,
+        "current": ORANGE,
+        "visited": BLUE,
     },
     {
         "wall": YELLOW,
@@ -34,6 +37,8 @@ PALETTES = [
         "exit": RED,
         "path": CYAN,
         "pattern": LIGHT_GRAY,
+        "current": ORANGE,
+        "visited": BLUE,
     },
     {
         "wall": GREEN,
@@ -42,6 +47,8 @@ PALETTES = [
         "exit": RED,
         "path": YELLOW,
         "pattern": LIGHT_GRAY,
+        "current": ORANGE,
+        "visited": CYAN,
     },
 ]
 
