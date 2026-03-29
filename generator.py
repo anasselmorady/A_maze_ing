@@ -66,7 +66,41 @@ class MazeGenerator:
             self.maze.grid[ny][nx].visited = True
             stack.append((nx, ny))
 
+        if not self.maze.perfect:
+            self._add_extra_openings(attempts = max(1, (self.maze.width * self.maze.height) // 10))
+
     def regenerate(self) -> None:
         """Generate a new maze."""
         self.random.seed(self.random.randint(0, 10**9))
         self.generate()
+
+    def _add_extra_openings(self, attempts: int = 10) -> None:
+        """Open extra walls to create loops when PERFECT is False."""
+        for _ in range(attempts):
+            x = self.random.randint(0, self.maze.width - 1)
+            y = self.random.randint(0, self.maze.height - 1)
+
+            if self.maze.grid[y][x].blocked:
+                continue
+
+            candidates: list[tuple[str, int, int]] = []
+
+            for direction, (dx, dy) in DIRS.items():
+                nx = x + dx
+                ny = y + dy
+
+                if not self.maze.in_bounds(nx, ny):
+                    continue
+                if self.maze.grid[ny][nx].blocked:
+                    continue
+
+                candidates.append((direction, nx, ny))
+
+            if not candidates:
+                continue
+
+            direction, nx, ny = self.random.choice(candidates)
+
+            if self.maze.grid[y][x].walls[direction]:
+                self._remove_wall(x, y, nx, ny, direction)
+1111111
