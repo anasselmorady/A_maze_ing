@@ -3,10 +3,10 @@ from __future__ import annotations
 import sys
 
 from config_parser import parse_config
-from maze import Maze
-from pattern import apply_42_pattern
-from generator import MazeGenerator
-from solver import MazeSolver
+from mazegen.maze import Maze
+from mazegen.pattern import apply_42_pattern
+from mazegen.generator import MazeGenerator
+from mazegen.solver import MazeSolver
 from writer import write_output
 from display import interactive_menu
 

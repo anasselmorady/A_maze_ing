@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from maze import Maze
+from mazegen.maze import Maze
 
 
 PATTERN_42 = [

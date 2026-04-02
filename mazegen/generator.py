@@ -3,8 +3,8 @@ from __future__ import annotations
 import random
 import time
 
-from maze import DIRS, OPPOSITE, Maze
-from pattern import apply_42_pattern
+from mazegen.maze import DIRS, OPPOSITE, Maze
+from mazegen.pattern import apply_42_pattern
 
 
 class MazeGenerator:

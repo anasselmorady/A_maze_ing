@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from collections import deque
 
-from maze import DIRS, Maze
+from mazegen.maze import DIRS, Maze
 
 
 class MazeSolver:

@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import os
 
-from maze import DIRS, Maze
-from generator import MazeGenerator
-from solver import MazeSolver
+from mazegen.maze import DIRS, Maze
+from mazegen.generator import MazeGenerator
+from mazegen.solver import MazeSolver
 from writer import write_output
 
 
@@ -146,21 +146,11 @@ def render_pretty(maze: Maze, show_path: bool, path: str | None, palette_index: 
 
     apply_entry_exit(maze, display)
 
-    margin = 1
-    empty_line = palette["empty"] * (len(display[0]) + margin * 2)
-
-    for _ in range(margin):
-        print(empty_line)
-
     for row in display:
-        line = palette["empty"] * margin
+        line = ""
         for cell in row:
             line += palette.get(cell, palette["empty"])
-        line += palette["empty"] * margin
         print(line)
-
-    for _ in range(margin):
-        print(empty_line)
 
 
 def interactive_menu(
