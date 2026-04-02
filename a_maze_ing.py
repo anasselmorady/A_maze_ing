@@ -15,7 +15,7 @@ def main() -> None:
     """Program entry point."""
     if len(sys.argv) != 2:
         print("Usage: python3 a_maze_ing.py config.txt")
-        sys.exit(1)
+        sys.exit()
 
     config_file = sys.argv[1]
 
@@ -49,16 +49,16 @@ def main() -> None:
 
     except FileNotFoundError:
         print(f"Error: file not found: {config_file}")
-        sys.exit(1)
+        sys.exit()
     except ValueError as error:
         print(f"Error: {error}")
-        sys.exit(1)
+        sys.exit()
     except KeyboardInterrupt:
         print("\nGoodbye.")
-        sys.exit(0)
+        sys.exit()
     except Exception as error:
         print(f"Unexpected error: {error}")
-        sys.exit(1)
+        sys.exit()
 
 
 if __name__ == "__main__":
