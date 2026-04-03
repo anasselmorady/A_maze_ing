@@ -26,7 +26,10 @@ def _pattern_start(maze: Maze) -> tuple[int, int]:
     return start_x, start_y
 
 
-def _entry_or_exit_inside_pattern(maze: Maze, start_x: int, start_y: int) -> None:
+def _entry_or_exit_inside_pattern(
+        maze: Maze,
+        start_x: int,
+        start_y: int) -> None:
     """Raise an error if entry or exit is placed on a blocked 42 cell."""
     for py in range(len(PATTERN_42)):
         for px in range(len(PATTERN_42[0])):

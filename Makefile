@@ -1,29 +1,15 @@
-# Program name
-NAME = a-maze-ing
-
-# Python
 PYTHON = python3
-
-# Main file
-MAIN = a_maze_ing.py
-
-# Config file
 CONFIG = config.txt
 
-# Colors
-GREEN = \033[0;32m
-RED = \033[0;31m
-RESET = \033[0m
-
-all:
-	@echo "$(GREEN)Running $(NAME)...$(RESET)"
-	@$(PYTHON) $(MAIN) $(CONFIG)
-
 run:
-	@$(PYTHON) $(MAIN) $(CONFIG)
-
+	$(PYTHON) a_maze_ing.py $(CONFIG)
+debug:
+	$(PYTHON) -m pdb a_maze_ing.py config.txt
 clean:
-	@echo "$(RED)Cleaning output...$(RESET)"
-	@rm -f maze_output.txt
-
-re: clean all
+	find . -type d -name "__pycache__" -exec rm -rf {} +
+	rm -rf .mypy_cache .pytest_cache
+lint:
+	flake8 .
+	mypy . --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs
+install:
+	pip install -r requirements.txt

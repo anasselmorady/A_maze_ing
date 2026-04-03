@@ -70,4 +70,7 @@ class Maze:
 
     def reset(self) -> None:
         """Reset all cells."""
-        self.grid = [[Cell() for _ in range(self.width)] for _ in range(self.height)]
+        self.grid = [
+            [Cell() for _ in range(self.width)]
+            for _ in range(self.height)
+        ]

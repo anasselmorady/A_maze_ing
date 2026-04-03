@@ -5,6 +5,7 @@ import time
 
 from mazegen.maze import DIRS, OPPOSITE, Maze
 from mazegen.pattern import apply_42_pattern
+from typing import Callable, Optional
 
 
 class MazeGenerator:
@@ -14,7 +15,11 @@ class MazeGenerator:
         self.maze = maze
         self.random = random.Random(seed)
 
-    def _unvisited_neighbors(self, x: int, y: int) -> list[tuple[str, int, int]]:
+    def _unvisited_neighbors(
+            self,
+            x: int,
+            y: int
+            ) -> list[tuple[str, int, int]]:
         """Return all valid unvisited neighbors."""
         neighbors: list[tuple[str, int, int]] = []
 
@@ -50,7 +55,13 @@ class MazeGenerator:
 
         return neighbors
 
-    def _remove_wall(self, x: int, y: int, nx: int, ny: int, direction: str) -> None:
+    def _remove_wall(
+            self,
+            x: int,
+            y: int,
+            nx: int,
+            ny: int,
+            direction: str) -> None:
         """Open the wall between two adjacent cells."""
         self.maze.grid[y][x].walls[direction] = False
         self.maze.grid[ny][nx].walls[OPPOSITE[direction]] = False
@@ -87,11 +98,13 @@ class MazeGenerator:
             self._remove_wall(x, y, nx, ny, direction)
 
     def generate(
-        self,
-        animate: bool = False,
-        frame_callback=None,
-        delay: float = 0.02,
-    ) -> None:
+            self,
+            animate: bool = False,
+            frame_callback: Optional[
+                Callable[[Maze, Optional[tuple[int, int]]], None]
+            ] = None,
+            delay: float = 0.02,
+            ) -> None:
         """Generate maze with iterative DFS."""
         self.maze.reset()
         apply_42_pattern(self.maze)

@@ -102,7 +102,11 @@ def path_cells(maze: Maze, path: str) -> list[tuple[int, int]]:
     return result
 
 
-def apply_path_overlay(maze: Maze, display: list[list[str]], path: str) -> None:
+def apply_path_overlay(
+        maze: Maze,
+        display: list[list[str]],
+        path: str
+        ) -> None:
     """Overlay shortest path."""
     ordered_cells = path_cells(maze, path)
 
@@ -136,7 +140,12 @@ def apply_entry_exit(maze: Maze, display: list[list[str]]) -> None:
     display[xy * 2 + 1][xx * 2 + 1] = "exit"
 
 
-def render_pretty(maze: Maze, show_path: bool, path: str | None, palette_index: int) -> None:
+def render_pretty(
+        maze: Maze,
+        show_path: bool,
+        path: str | None,
+        palette_index: int
+        ) -> None:
     """Render maze in terminal."""
     palette = PALETTES[palette_index % len(PALETTES)]
     display = build_display_grid(maze)
