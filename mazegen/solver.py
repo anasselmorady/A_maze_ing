@@ -3,12 +3,20 @@ from __future__ import annotations
 from collections import deque
 
 from mazegen.maze import DIRS, Maze
+import sys
 
 
 class MazeSolver:
     """Solve maze using BFS."""
 
     def __init__(self, maze: Maze) -> None:
+        try:
+            if not isinstance(maze, Maze):
+                raise TypeError("maze must be an instance of Maze.")
+
+        except Exception as e:
+            print(e)
+            sys.exit()
         self.maze = maze
 
     def shortest_path(self) -> str:

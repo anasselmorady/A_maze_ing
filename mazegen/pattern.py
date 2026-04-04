@@ -1,14 +1,14 @@
 from __future__ import annotations
-
 from mazegen.maze import Maze
+import sys
 
 
 PATTERN_42 = [
-    "01000111",
-    "01000001",
-    "01110111",
-    "00010100",
-    "00010111",
+    "1000111",
+    "1000001",
+    "1110111",
+    "0010100",
+    "0010111",
 ]
 
 
@@ -52,7 +52,7 @@ def apply_42_pattern(maze: Maze) -> None:
 
     if maze.width < pattern_w + 2 or maze.height < pattern_h + 2:
         print("Warning: maze too small for 42 pattern.")
-        return
+        sys.exit()
 
     start_x, start_y = _pattern_start(maze)
     _entry_or_exit_inside_pattern(maze, start_x, start_y)

@@ -53,7 +53,7 @@ def parse_config(filename: str) -> dict[str, Any]:
                 raise ValueError(f"Invalid config line: {line}")
 
             key, value = line.split("=", 1)
-            raw[key.strip()] = value.strip()
+            raw[key.strip().upper()] = value.strip()
 
     for key in REQUIRED_KEYS:
         if key not in raw:

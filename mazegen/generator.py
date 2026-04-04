@@ -1,5 +1,5 @@
 from __future__ import annotations
-
+import sys
 import random
 import time
 from typing import Callable, Optional
@@ -12,18 +12,20 @@ class MazeGenerator:
     """Generate maze using DFS."""
 
     def __init__(self, maze: Maze, seed: int | None = None) -> None:
-       # self._validate_init_inputs(maze, seed)
+        """Validate constructor inputs."""
+        try:
+            if not isinstance(maze, Maze):
+                raise TypeError("maze must be an instance of Maze.")
+
+            if seed is not None and not isinstance(seed, int):
+                raise TypeError("seed must be an integer or None.")
+        except Exception as e:
+            print(e)
+            sys.exit()
+
         self.maze = maze
         self.seed = seed
         # self.random = random.Random(seed)
-
-   # def _validate_init_inputs(self, maze: Maze, seed: int | None) -> None:
-        """Validate constructor inputs."""
-        if not isinstance(maze, Maze):
-            raise TypeError("maze must be an instance of Maze.")
-
-        if seed is not None and not isinstance(seed, int):
-            raise TypeError("seed must be an integer or None.")
 
     def _validate_generate_inputs(
         self,
