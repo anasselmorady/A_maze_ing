@@ -12,11 +12,12 @@ class MazeGenerator:
     """Generate maze using DFS."""
 
     def __init__(self, maze: Maze, seed: int | None = None) -> None:
-        self._validate_init_inputs(maze, seed)
+       # self._validate_init_inputs(maze, seed)
         self.maze = maze
-        self.random = random.Random(seed)
+        self.seed = seed
+        # self.random = random.Random(seed)
 
-    def _validate_init_inputs(self, maze: Maze, seed: int | None) -> None:
+   # def _validate_init_inputs(self, maze: Maze, seed: int | None) -> None:
         """Validate constructor inputs."""
         if not isinstance(maze, Maze):
             raise TypeError("maze must be an instance of Maze.")
@@ -27,7 +28,9 @@ class MazeGenerator:
     def _validate_generate_inputs(
         self,
         animate: bool,
-        frame_callback: Optional[Callable[[Maze, Optional[tuple[int, int]]], None]],
+        frame_callback: Optional[
+            Callable[[Maze, Optional[tuple[int, int]]], None]
+        ],
         delay: float,
     ) -> None:
         """Validate generate() inputs."""
@@ -111,8 +114,10 @@ class MazeGenerator:
         attempts = max(1, (self.maze.width * self.maze.height) // 2)
 
         for _ in range(attempts):
-            x = self.random.randint(0, self.maze.width - 1)
-            y = self.random.randint(0, self.maze.height - 1)
+            # x = self.random.randint(0, self.maze.width - 1)
+            x = random.randint(0, self.maze.width - 1)
+            # y = self.random.randint(0, self.maze.height - 1)
+            y = random.randint(0, self.maze.height - 1)
 
             if self.maze.grid[y][x].blocked:
                 continue
@@ -134,7 +139,8 @@ class MazeGenerator:
             if not closed_neighbors:
                 continue
 
-            direction, nx, ny = self.random.choice(closed_neighbors)
+            # direction, nx, ny = self.random.choice(closed_neighbors)
+            direction, nx, ny = random.choice(closed_neighbors)
             self._remove_wall(x, y, nx, ny, direction)
 
     def generate(
@@ -146,6 +152,8 @@ class MazeGenerator:
         delay: float = 0.02,
     ) -> None:
         """Generate maze with iterative DFS."""
+        if self.seed:
+            random.seed(self.seed)
         self._validate_generate_inputs(animate, frame_callback, delay)
 
         self.maze.reset()
@@ -174,7 +182,8 @@ class MazeGenerator:
 
                 continue
 
-            direction, nx, ny = self.random.choice(neighbors)
+            # direction, nx, ny = self.random.choice(neighbors)
+            direction, nx, ny = random.choice(neighbors)
             self._remove_wall(x, y, nx, ny, direction)
             self.maze.grid[ny][nx].visited = True
             stack.append((nx, ny))
@@ -188,5 +197,8 @@ class MazeGenerator:
 
     def regenerate(self) -> None:
         """Generate a new random maze."""
-        self.random.seed(self.random.randint(0, 10**9))
+        # self.random.seed(self.random.randint(0, 10**9))
+        # self.random.seed(self.random.randint(0, 10**9))
+        # if self.seed:
+        #     random.seed(self.seed)
         self.generate()

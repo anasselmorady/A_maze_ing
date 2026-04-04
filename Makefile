@@ -12,4 +12,5 @@ lint:
 	flake8 .
 	mypy . --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs
 install:
-	pip install -r requirements.txt
+	pip install --upgrade pip
+	pip install flake8 mypy build
