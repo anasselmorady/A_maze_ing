@@ -3,7 +3,7 @@ name = "mazegen"
 version = "1.0.0"
 description = ""
 authors = [
-    {name = "ael-mora, oel-mora"}
+    {name = "ael-mora , oel-mora"}
 ]
 readme = "README.md"
 requires-python = ">=3.10"

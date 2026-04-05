@@ -1,9 +1,5 @@
-from __future__ import annotations
 import sys
 import random
-import time
-from typing import Callable, Optional
-
 from mazegen.maze import DIRS, OPPOSITE, Maze
 from mazegen.pattern import apply_42_pattern
 
@@ -25,28 +21,6 @@ class MazeGenerator:
 
         self.maze = maze
         self.seed = seed
-        # self.random = random.Random(seed)
-
-    def _validate_generate_inputs(
-        self,
-        animate: bool,
-        frame_callback: Optional[
-            Callable[[Maze, Optional[tuple[int, int]]], None]
-        ],
-        delay: float,
-    ) -> None:
-        """Validate generate() inputs."""
-        if not isinstance(animate, bool):
-            raise TypeError("animate must be True or False.")
-
-        if frame_callback is not None and not callable(frame_callback):
-            raise TypeError("frame_callback must be callable or None.")
-
-        if not isinstance(delay, (int, float)):
-            raise TypeError("delay must be a number.")
-
-        if delay < 0:
-            raise ValueError("delay must be greater than or equal to 0.")
 
     def _validate_start_end_cells(self) -> None:
         """Validate entry and exit after applying the 42 pattern."""
@@ -113,12 +87,10 @@ class MazeGenerator:
 
     def _add_extra_openings(self) -> None:
         """Force creation of loops when PERFECT=False."""
-        attempts = max(1, (self.maze.width * self.maze.height) // 2)
+        attempts = max(1, (self.maze.width * self.maze.height) // 5)
 
         for _ in range(attempts):
-            # x = self.random.randint(0, self.maze.width - 1)
             x = random.randint(0, self.maze.width - 1)
-            # y = self.random.randint(0, self.maze.height - 1)
             y = random.randint(0, self.maze.height - 1)
 
             if self.maze.grid[y][x].blocked:
@@ -141,22 +113,13 @@ class MazeGenerator:
             if not closed_neighbors:
                 continue
 
-            # direction, nx, ny = self.random.choice(closed_neighbors)
             direction, nx, ny = random.choice(closed_neighbors)
             self._remove_wall(x, y, nx, ny, direction)
 
-    def generate(
-        self,
-        animate: bool = False,
-        frame_callback: Optional[
-            Callable[[Maze, Optional[tuple[int, int]]], None]
-        ] = None,
-        delay: float = 0.02,
-    ) -> None:
+    def generate(self) -> None:
         """Generate maze with iterative DFS."""
         if self.seed:
             random.seed(self.seed)
-        self._validate_generate_inputs(animate, frame_callback, delay)
 
         self.maze.reset()
         apply_42_pattern(self.maze)
@@ -166,41 +129,22 @@ class MazeGenerator:
         self.maze.grid[start_y][start_x].visited = True
         stack: list[tuple[int, int]] = [(start_x, start_y)]
 
-        if animate and frame_callback is not None:
-            frame_callback(self.maze, (start_x, start_y))
-            time.sleep(delay)
-
         while stack:
             x, y = stack[-1]
             neighbors = self._unvisited_neighbors(x, y)
 
             if not neighbors:
                 stack.pop()
-
-                if animate and frame_callback is not None:
-                    current = stack[-1] if stack else None
-                    frame_callback(self.maze, current)
-                    time.sleep(delay)
-
                 continue
 
-            # direction, nx, ny = self.random.choice(neighbors)
             direction, nx, ny = random.choice(neighbors)
             self._remove_wall(x, y, nx, ny, direction)
             self.maze.grid[ny][nx].visited = True
             stack.append((nx, ny))
-
-            if animate and frame_callback is not None:
-                frame_callback(self.maze, (nx, ny))
-                time.sleep(delay)
 
         if not self.maze.perfect:
             self._add_extra_openings()
 
     def regenerate(self) -> None:
         """Generate a new random maze."""
-        # self.random.seed(self.random.randint(0, 10**9))
-        # self.random.seed(self.random.randint(0, 10**9))
-        # if self.seed:
-        #     random.seed(self.seed)
         self.generate()
