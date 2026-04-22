@@ -145,7 +145,7 @@ generator.generate()
 
 ## Team & Project Management
 
-### 👤 Team
+### Team
 
 * ael-mora → display, interaction & output, pattern 42
 * oel-mora → Maze generation (DFS), Solver (BFS),  core logic
